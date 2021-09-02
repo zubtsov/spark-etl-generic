@@ -1,0 +1,4 @@
+organization_legacy_id,product_legacy_id,customer_legacy_id,quantity,unit_price
+org1,prod1,cust1,10,5.0
+org2,prod2,cust2,20,10.0
+org3,prod3,cust3,30,15.0

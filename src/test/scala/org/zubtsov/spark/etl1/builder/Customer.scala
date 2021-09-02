@@ -5,13 +5,13 @@ import com.zubtsov.spark.api.writing.Save
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.expressions.Window
 import org.apache.spark.sql.functions.{col, row_number}
-import org.zubtsov.spark.etl1.reader.MyReader
-import org.zubtsov.spark.etl1.writer.MyWriter
+import org.zubtsov.spark.etl1.reader.RawAreaReader
+import org.zubtsov.spark.etl1.writer.PreparedAreaWriter
 
 class Customer {
-  @Save(writer = MyWriter.Name)
+  @Save(writer = PreparedAreaWriter.Name)
   @Table(Customer.TableName)
-  def build(@Table(name = "customer_raw", reader = MyReader.Name) customerRaw: DataFrame): DataFrame = {
+  def build(@Table(name = "customer_raw", reader = RawAreaReader.Name) customerRaw: DataFrame): DataFrame = {
     customerRaw
       .select(
         row_number().over(Window.orderBy("customer_id")).as("id"), //FIXME: it's a bad approach of generating IDs

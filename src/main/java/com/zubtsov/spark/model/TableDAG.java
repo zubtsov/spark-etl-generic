@@ -1,5 +1,6 @@
 package com.zubtsov.spark.model;
 
+import com.zubtsov.spark.api.configuration.Configuration;
 import com.zubtsov.spark.model.proxy.Table;
 import com.zubtsov.spark.model.proxy.TableReader;
 import com.zubtsov.spark.model.proxy.TableWriter;
@@ -19,14 +20,17 @@ import java.util.Iterator;
 import java.util.Map;
 
 //todo: add interface and implementation for parallel table building
+//todo: how to run jobs in parallel? perhaps, it's easier/better to use custom data structure rather than a graph
 public class TableDAG {
     private static final Logger LOGGER = LoggerFactory.getLogger(TableDAG.class);
 
+    private final Configuration configuration;
     private final Map<String, TableReader> tableReaders;
     private final Map<String, TableWriter> tableWriters;
     private final Graph<Table, DefaultEdge> tableGraph;
 
-    public TableDAG(Map<String, Table> nameToTable, Map<String, TableReader> tableReaders, Map<String, TableWriter> tableWriters) {
+    public TableDAG(Map<String, Table> nameToTable, Map<String, TableReader> tableReaders, Map<String, TableWriter> tableWriters, Configuration configuration) {
+        this.configuration = configuration;
         this.tableReaders = tableReaders;
         this.tableWriters = tableWriters;
         this.tableGraph = getTableGraph(nameToTable);
@@ -37,8 +41,8 @@ public class TableDAG {
         Map<String, Dataset<Row>> builtTables = new HashMap<>();
 
         for (Table table : new IteratorIterable<>(topologicalOrderIterator)) {
-            table.buildTable(builtTables, tableReaders, tableWriters);
-            LOGGER.info(table.toString()); //todo: how to run jobs in parallel? perhaps, it's easier/better to use custom data structure rather than a graph
+            table.processTable(builtTables, tableReaders, tableWriters, configuration);
+            LOGGER.info(table.toString());
         }
     }
     //FIXME: external tables are not added to the graph, check if that's more flexible and convenient

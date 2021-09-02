@@ -1,5 +1,7 @@
 package com.zubtsov.spark.model.proxy;
 
+import com.zubtsov.spark.api.configuration.Configuration;
+import com.zubtsov.spark.model.ReflectionUtils;
 import com.zubtsov.spark.model.exception.InvalidTableReaderException;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -21,9 +23,10 @@ public class TableReader {
         this.readMethod = readMethod;
     }
 
-    public Dataset<Row> read(String tableName) {
+    public Dataset<Row> read(String tableName, Configuration configuration) {
         try {
-            return (Dataset<Row>) readMethod.invoke(readerObject, tableName);
+            return (Dataset<Row>) ReflectionUtils.invokeUnorderedArgs(readMethod, readerObject,
+                    tableName, configuration);
         } catch (Exception e) {
             throw new InvalidTableReaderException(e);
         }
