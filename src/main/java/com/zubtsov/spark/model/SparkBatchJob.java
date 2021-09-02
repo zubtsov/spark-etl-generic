@@ -1,5 +1,6 @@
 package com.zubtsov.spark.model;
 
+import com.zubtsov.spark.api.configuration.Configuration;
 import com.zubtsov.spark.api.reading.TableReader;
 import com.zubtsov.spark.api.writing.TableWriter;
 import com.zubtsov.spark.model.proxy.Table;
@@ -28,8 +29,8 @@ public class SparkBatchJob {
         this.nameToTable = collectTables();
     }
 
-    public void run() throws InvocationTargetException, InstantiationException, IllegalAccessException {
-        new TableDAG(nameToTable, tableReaders, tableWriters).buildTables();
+    public void run(Configuration configuration) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+        new TableDAG(nameToTable, tableReaders, tableWriters, configuration).buildTables();
     }
 
     private Map<String, Table> collectTables() {

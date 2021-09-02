@@ -58,7 +58,7 @@ to share some common project-specific logic/code across pipelines.
 8. TBD
 
 # Code examples
-
+[Simple job example](src/test/scala/org/zubtsov/spark/etl1)
 
 # Further development & evolution plan
 Accumulate real-world use cases & scenarios to extend the functionality and improve flexibility 
@@ -80,6 +80,9 @@ Should we force a developer to separate code for reading and writing? Do they ne
 
 # Check out other frameworks
 1. https://github.com/SETL-Framework/setl
+2. https://github.com/airbnb/sputnik
+3. https://github.com/apache/hudi
+5. https://github.com/typelevel/frameless
 N. https://github.com/pawl/awesome-etl
 
 # TODO

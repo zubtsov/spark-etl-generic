@@ -1,8 +1,11 @@
 package com.zubtsov.spark.model.proxy;
 
+import com.zubtsov.spark.api.configuration.Configuration;
 import com.zubtsov.spark.api.writing.Save;
+import com.zubtsov.spark.model.ReflectionUtils;
 import com.zubtsov.spark.model.exception.TableReaderNotFoundException;
 import com.zubtsov.spark.model.exception.TableWriterNotFoundException;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -35,9 +38,29 @@ public final class Table {
         Collections.reverse(tableWritersNames);
     }
 
-    public Dataset<Row> buildTable(Map<String, Dataset<Row>> builtTables, Map<String, TableReader> tableReaders, Map<String, TableWriter> tableWriters) throws InstantiationException, IllegalAccessException, InvocationTargetException {
+    public Dataset<Row> processTable(Map<String, Dataset<Row>> builtTables, Map<String, TableReader> tableReaders, Map<String, TableWriter> tableWriters, Configuration configuration) throws InstantiationException, IllegalAccessException, InvocationTargetException {
+        Dataset[] dependencies = getDatasetDependencies(builtTables, tableReaders, configuration);
+        List<Object> args = new ArrayList<>(Arrays.asList(dependencies));
+        args.add(configuration);
         Object builderObject = buildTableMethod.getDeclaringClass().newInstance();
-        Dataset[] dependencies = dependencyTablesToReaders.entrySet().stream().map(entry -> {
+        Dataset<Row> builtTable = (Dataset<Row>) ReflectionUtils.invokeUnorderedArgs(buildTableMethod, builderObject, args.toArray());
+
+        Dataset<Row> lastWrittenTable = null;
+        for (String trn : tableWritersNames) {
+            TableWriter tableWriter = tableWriters.get(trn);
+            if (tableWriter == null) {
+                throw new TableWriterNotFoundException(trn);
+            }
+            lastWrittenTable = tableWriter.write(tableName, builtTable, configuration);
+        }
+
+        Dataset<Row> resultTable = ObjectUtils.firstNonNull(lastWrittenTable, builtTable);
+        builtTables.put(tableName, resultTable);
+        return resultTable;
+    }
+
+    private Dataset[] getDatasetDependencies(Map<String, Dataset<Row>> builtTables, Map<String, TableReader> tableReaders, Configuration configuration) {
+        return dependencyTablesToReaders.entrySet().stream().map(entry -> {
             String tn = entry.getKey();
             String dependencyTableReader = entry.getValue();
             if (builtTables.containsKey(tn)) {
@@ -48,27 +71,12 @@ public final class Table {
                     if (r == null) {
                         throw new TableReaderNotFoundException(dependencyTableReader);
                     }
-                    return r.read(tn);
+                    return r.read(tn, configuration);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
             }
         }).toArray(Dataset[]::new);
-
-        Dataset<Row> builtTable = (Dataset<Row>) buildTableMethod.invoke(builderObject, dependencies);
-
-        Dataset<Row> lastWrittenTable = null;
-        for (String trn : tableWritersNames) {
-            TableWriter tableWriter = tableWriters.get(trn);
-            if (tableWriter == null) {
-                throw new TableWriterNotFoundException(trn);
-            }
-            lastWrittenTable = tableWriter.write(tableName, builtTable);
-        }
-
-        Dataset<Row> resultTable = ObjectUtils.firstNonNull(lastWrittenTable, builtTable);
-        builtTables.put(tableName, resultTable);
-        return resultTable;
     }
 
     public static Table ofMethod(Method buildTable) {
