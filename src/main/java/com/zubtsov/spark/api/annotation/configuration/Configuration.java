@@ -1,12 +1,14 @@
-package com.zubtsov.spark.api.configuration;
+package com.zubtsov.spark.api.annotation.configuration;
+
+import com.zubtsov.spark.api.annotation.Table;
 
 /**
  * The purpose of this class is to parametrize ETL job.
  * It can be useful to support environment-specific configuration or access any other external parameters.
  * Can be added as a parameter to any table reader, writer or builder.
- * @see com.zubtsov.spark.api.reading.TableReader
- * @see com.zubtsov.spark.api.writing.TableWriter
- * @see com.zubtsov.spark.api.Table
+ * @see com.zubtsov.spark.api.annotation.reading.TableReader
+ * @see com.zubtsov.spark.api.annotation.writing.TableWriter
+ * @see Table
  */
 public interface Configuration<T> {
     /**

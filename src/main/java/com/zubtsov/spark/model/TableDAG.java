@@ -1,6 +1,6 @@
 package com.zubtsov.spark.model;
 
-import com.zubtsov.spark.api.configuration.Configuration;
+import com.zubtsov.spark.api.annotation.configuration.Configuration;
 import com.zubtsov.spark.model.proxy.Table;
 import com.zubtsov.spark.model.proxy.TableReader;
 import com.zubtsov.spark.model.proxy.TableWriter;

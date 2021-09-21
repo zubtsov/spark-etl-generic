@@ -1,7 +1,7 @@
 package org.zubtsov.spark.etl1.writer
 
-import com.zubtsov.spark.api.configuration.Configuration
-import com.zubtsov.spark.api.writing.TableWriter
+import com.zubtsov.spark.api.annotation.configuration.Configuration
+import com.zubtsov.spark.api.annotation.writing.TableWriter
 import org.apache.spark.sql.{DataFrame, SaveMode, SparkSession}
 
 class PreparedAreaWriter {

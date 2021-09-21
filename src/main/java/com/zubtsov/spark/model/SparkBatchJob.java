@@ -1,8 +1,8 @@
 package com.zubtsov.spark.model;
 
-import com.zubtsov.spark.api.configuration.Configuration;
-import com.zubtsov.spark.api.reading.TableReader;
-import com.zubtsov.spark.api.writing.TableWriter;
+import com.zubtsov.spark.api.annotation.configuration.Configuration;
+import com.zubtsov.spark.api.annotation.reading.TableReader;
+import com.zubtsov.spark.api.annotation.writing.TableWriter;
 import com.zubtsov.spark.model.proxy.Table;
 import com.zubtsov.spark.model.proxy.TableAnnotation;
 import org.reflections.Reflections;
@@ -34,7 +34,7 @@ public class SparkBatchJob {
     }
 
     private Map<String, Table> collectTables() {
-        return reflections.getMethodsAnnotatedWith(com.zubtsov.spark.api.Table.class).stream().collect(Collectors.toMap(
+        return reflections.getMethodsAnnotatedWith(com.zubtsov.spark.api.annotation.Table.class).stream().collect(Collectors.toMap(
                 m -> TableAnnotation.ofMethod(m).getName(),
                 Function.identity()
         )).entrySet().stream().collect(Collectors.toMap(

@@ -1,6 +1,6 @@
 package org.zubtsov.spark.etl1
 
-import com.zubtsov.spark.api.configuration.Configuration
+import com.zubtsov.spark.api.annotation.configuration.Configuration
 import com.zubtsov.spark.model.SparkBatchJob
 import org.apache.spark.sql.SparkSession
 import org.scalatest.FunSuite

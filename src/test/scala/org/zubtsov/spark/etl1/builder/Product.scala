@@ -1,7 +1,7 @@
 package org.zubtsov.spark.etl1.builder
 
-import com.zubtsov.spark.api.Table
-import com.zubtsov.spark.api.writing.Save
+import com.zubtsov.spark.api.annotation.Table
+import com.zubtsov.spark.api.annotation.writing.Save
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.expressions.Window
 import org.apache.spark.sql.functions.{col, row_number}

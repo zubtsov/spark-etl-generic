@@ -1,11 +1,10 @@
 package com.zubtsov.spark.model.proxy;
 
-import com.zubtsov.spark.api.configuration.Configuration;
-import com.zubtsov.spark.api.writing.Save;
+import com.zubtsov.spark.api.annotation.configuration.Configuration;
+import com.zubtsov.spark.api.annotation.writing.Save;
 import com.zubtsov.spark.model.ReflectionUtils;
 import com.zubtsov.spark.model.exception.TableReaderNotFoundException;
 import com.zubtsov.spark.model.exception.TableWriterNotFoundException;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -110,7 +109,7 @@ public final class Table {
                 .filter(i -> {
                     Annotation[] parameterAnnotations = pas[i];
                     return Arrays.stream(parameterAnnotations)
-                            .anyMatch(a -> Objects.equals(a.annotationType(), com.zubtsov.spark.api.Table.class));
+                            .anyMatch(a -> Objects.equals(a.annotationType(), com.zubtsov.spark.api.annotation.Table.class));
                 })
                 .boxed()
                 .collect(Collectors.toMap(

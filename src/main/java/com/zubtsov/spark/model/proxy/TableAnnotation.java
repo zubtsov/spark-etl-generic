@@ -1,6 +1,6 @@
 package com.zubtsov.spark.model.proxy;
 
-import com.zubtsov.spark.api.Table;
+import com.zubtsov.spark.api.annotation.Table;
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Method;

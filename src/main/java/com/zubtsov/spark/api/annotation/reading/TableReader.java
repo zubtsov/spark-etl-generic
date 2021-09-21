@@ -1,4 +1,4 @@
-package com.zubtsov.spark.api.reading;
+package com.zubtsov.spark.api.annotation.reading;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

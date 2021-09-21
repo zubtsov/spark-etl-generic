@@ -1,11 +1,11 @@
-package com.zubtsov.spark.api;
+package com.zubtsov.spark.api.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import static com.zubtsov.spark.api.reading.TableReader.DEFAULT_READER_NAME;
+import static com.zubtsov.spark.api.annotation.reading.TableReader.DEFAULT_READER_NAME;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.PARAMETER})
@@ -32,7 +32,7 @@ public @interface Table { //TODO: add String value() method as a synonym of name
 
     /**
      * Table reader name
-     * @see com.zubtsov.spark.api.reading.TableReader
+     * @see com.zubtsov.spark.api.annotation.reading.TableReader
      */
     String reader() default DEFAULT_READER_NAME; //TODO: allow default no-name reader
 }

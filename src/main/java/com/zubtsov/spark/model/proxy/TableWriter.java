@@ -1,6 +1,6 @@
 package com.zubtsov.spark.model.proxy;
 
-import com.zubtsov.spark.api.configuration.Configuration;
+import com.zubtsov.spark.api.annotation.configuration.Configuration;
 import com.zubtsov.spark.model.ReflectionUtils;
 import com.zubtsov.spark.model.exception.InvalidTableWriterException;
 import org.apache.spark.sql.Dataset;
@@ -14,7 +14,7 @@ public class TableWriter {
     private final Method writeMethod;
 
     private TableWriter(Method writeMethod) {
-        this.name = writeMethod.getAnnotation(com.zubtsov.spark.api.writing.TableWriter.class).name();
+        this.name = writeMethod.getAnnotation(com.zubtsov.spark.api.annotation.writing.TableWriter.class).name();
         this.writeMethod = writeMethod;
         try {
             this.writerObject = writeMethod.getDeclaringClass().newInstance();

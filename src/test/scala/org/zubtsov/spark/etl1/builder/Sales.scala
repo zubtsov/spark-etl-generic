@@ -1,7 +1,7 @@
 package org.zubtsov.spark.etl1.builder
 
-import com.zubtsov.spark.api.Table
-import com.zubtsov.spark.api.writing.{MultipleSave, Save}
+import com.zubtsov.spark.api.annotation.Table
+import com.zubtsov.spark.api.annotation.writing.{MultipleSave, Save}
 import org.apache.spark.sql.DataFrame
 import org.zubtsov.spark.etl1.reader.RawAreaReader
 import org.zubtsov.spark.etl1.writer.PreparedAreaWriter

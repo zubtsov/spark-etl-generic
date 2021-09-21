@@ -1,7 +1,7 @@
 package org.zubtsov.spark.etl1.reader
 
-import com.zubtsov.spark.api.configuration.Configuration
-import com.zubtsov.spark.api.reading.TableReader
+import com.zubtsov.spark.api.annotation.configuration.Configuration
+import com.zubtsov.spark.api.annotation.reading.TableReader
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
 class RawAreaReader {

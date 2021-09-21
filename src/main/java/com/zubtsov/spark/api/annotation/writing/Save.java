@@ -1,8 +1,8 @@
-package com.zubtsov.spark.api.writing;
+package com.zubtsov.spark.api.annotation.writing;
 
 import java.lang.annotation.*;
 
-import static com.zubtsov.spark.api.writing.TableWriter.DEFAULT_WRITER_NAME;
+import static com.zubtsov.spark.api.annotation.writing.TableWriter.DEFAULT_WRITER_NAME;
 //todo: support write options? is there any options that should be associated with the table or all of them should
 // be configured in table writer? perhaps it's 50/50
 /**
