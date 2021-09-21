@@ -14,6 +14,4 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD})
 public @interface TableWriter {
     String name();
-
-    String DEFAULT_WRITER_NAME = "DEFAULT_WRITER";
 }

@@ -14,6 +14,4 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD})
 public @interface TableReader {
     String name();
-
-    String DEFAULT_READER_NAME = "DEFAULT_READER";
 }

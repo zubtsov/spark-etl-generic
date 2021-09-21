@@ -4,7 +4,12 @@ import com.zubtsov.spark.api.extension.configuration.Configuration;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
-public interface  TableReader<T> {
-    String getName();
+import static com.zubtsov.spark.common.DefaultNames.DEFAULT_READER_NAME;
+
+public interface TableReader<T> {
+    default String getName() {
+        return DEFAULT_READER_NAME;
+    }
+
     Dataset<Row> readTable(String tableName, Configuration<T> configuration);
 }

@@ -87,7 +87,7 @@ Should we force a developer to separate code for reading and writing? Do they ne
 N. https://github.com/pawl/awesome-etl
 
 # TODO
-Rename project/repository? TableNetSpark/TableWebSpark
+Rename project/repository? TableNetSpark/TableWebSpark; maybe spark-table-graph/spark-table-dag
 Empty strings as a default values for annotation parameters look a bit clumsy...
 Configure Checkstyle, PMD, FindBugs
 Support SQL (+ analyze it's dependencies to resolve them automatically)
