@@ -55,7 +55,8 @@ to transformers. Such jobs are some kind of generic ingestion.
 to share some common project-specific logic/code across pipelines.
 6. Conditional table skipping.
 7. Allowing SQL's as table builders can be tricky if we don't want to supply their dependencies explicitly
-8. TBD
+8. Think about the case when we need to open multiple connections from worker nodes and reuse them. 
+9. TBD
 
 # Code examples
 [Simple job example](src/test/scala/org/zubtsov/spark/etl1)
@@ -91,3 +92,4 @@ Empty strings as a default values for annotation parameters look a bit clumsy...
 Configure Checkstyle, PMD, FindBugs
 Support SQL (+ analyze it's dependencies to resolve them automatically)
 Fix packages names
+We should have some interfaces to ease default implementations support
