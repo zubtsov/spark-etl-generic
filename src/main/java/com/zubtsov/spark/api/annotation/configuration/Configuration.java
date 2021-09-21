@@ -9,7 +9,7 @@ import com.zubtsov.spark.api.annotation.Table;
  * @see com.zubtsov.spark.api.annotation.reading.TableReader
  * @see com.zubtsov.spark.api.annotation.writing.TableWriter
  * @see Table
- */
+ */ //TODO: replace it with annotation
 public interface Configuration<T> {
     /**
      * @param key - name of a configuration parameter

@@ -15,7 +15,7 @@ import static com.zubtsov.spark.api.annotation.reading.TableReader.DEFAULT_READE
  *  Self references only allowed when the table is persisted somewhere.
  *  There are 2 types of tables: internal - produced by the pipeline and external - exist independently of the pipeline.
  */
-public @interface Table { //TODO: add String value() method as a synonym of name to allow nameless argument notation in Scala
+public @interface Table {
     /**
      * A synonym of the name. name() has higher priority than value().
      * @return table name
